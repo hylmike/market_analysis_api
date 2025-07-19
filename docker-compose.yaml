@@ -1,0 +1,14 @@
+services:
+  api:
+    working_dir: /home/backend
+    build: .
+    command: bash -c "uvicorn api.server:server --reload --host 0.0.0.0 --port 3000"
+    ports:
+      - "3000:3000"
+    env_file: "./.env"
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
+    #     restart: true
+    volumes:
+      - ./api:/home/backend/api

@@ -1,0 +1,8 @@
+.env
+.cache
+.vscode/*
+.venv
+.log
+logs
+dist
+node_modules
