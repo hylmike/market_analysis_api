@@ -27,6 +27,12 @@ if not tavily_api_key:
         "Not found Tavily API key in environment variables, please refer to env.example to config the API key"
     )
 
+analysis_weights = {
+    "incumbents_score": 0.4,
+    "funding_score": 0.3,
+    "growth_score": 0.3,
+}
+
 llm = GPTModel("gpt-4o-mini")
 incumbents_analysis_agent = Agent(
     "openai:gpt-4o-mini",
@@ -124,7 +130,7 @@ async def gen_analysis_scores(
     incumbents_analysis: str,
     funding_analysis: str,
     growth_analysis: str,
-) -> str:
+) -> IdeaScores:
     prompt = f"""Based on following idea and three analysis:
 idea: {idea}
 incumbents_analysis: {incumbents_analysis}
@@ -163,16 +169,11 @@ growth_analysis: {ctx.deps.growth_analysis}
 @overall_analysis_agent.tool
 def calculate_overall_score(ctx: RunContext[OverallAnalysisInput]):
     """With given scores for each analysis, calculate the overall score"""
-    weights = {
-        "incumbents_score": 0.4,
-        "funding_score": 0.3,
-        "growth_score": 0.3,
-    }
     scores = ctx.deps.scores
     overall_score = (
-        scores.incumbents_score * weights["incumbents_score"]
-        + scores.funding_score * weights["funding_score"]
-        + scores.growth_score * weights["growth_score"]
+        scores.incumbents_score * analysis_weights["incumbents_score"]
+        + scores.funding_score * analysis_weights["funding_score"]
+        + scores.growth_score * analysis_weights["growth_score"]
     )
     logger.info(f"Overall score is {overall_score}")
     return overall_score

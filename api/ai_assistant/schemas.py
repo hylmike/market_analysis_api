@@ -21,8 +21,5 @@ class OverallAnalysisInput(BaseModel):
 
 
 class FinalResult(BaseModel):
-    incumbents_analysis: str
-    funding_analysis: str
-    growth_analysis: str
     overall_score: float
     final_judgement: str
