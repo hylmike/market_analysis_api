@@ -11,7 +11,6 @@ from api.ai_assistant.agents import (
     search_growth,
     gen_analysis_scores,
     gen_overall_analysis,
-    analysis_weights,
 )
 
 
@@ -51,7 +50,7 @@ async def gen_market_analysis(query: str):
         "incumbents": scores.incumbents_score,
         "funding": scores.funding_score,
         "growth": scores.growth_score,
-        "overall": overall_analysis.overall_score,
+        "overall": round(overall_analysis.overall_score, 2),
     }
 
     return {

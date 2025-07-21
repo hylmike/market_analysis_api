@@ -175,7 +175,7 @@ def calculate_overall_score(ctx: RunContext[OverallAnalysisInput]):
         + scores.funding_score * analysis_weights["funding_score"]
         + scores.growth_score * analysis_weights["growth_score"]
     )
-    logger.info(f"Overall score is {overall_score}")
+    logger.info(f"Overall score is {overall_score:.2f}")
     return overall_score
 
 
