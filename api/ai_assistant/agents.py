@@ -195,5 +195,9 @@ async def gen_overall_analysis(
         "With the given inputs, return the final result",
         deps=deps,
     )
+    logger.info(
+        f"Overall analysis score is {result.output.overall_score:.2f}\n"
+    )
+    logger.info(f"Final judgement is:\n{result.output.final_judgement}\n")
 
     return result.output

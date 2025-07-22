@@ -25,9 +25,9 @@ def query_analysis(query: str) -> str:
 async def gen_market_analysis(query: str):
     proposal = query_analysis(query)
     results = await asyncio.gather(
-        gen_incumbent_analysis(proposal),
-        gen_funding_analysis(proposal),
-        gen_growth_analysis(proposal),
+        search_incumbents(proposal),
+        search_funding(proposal),
+        search_growth(proposal),
     )
     [incumbent_analysis, funding_analysis, growth_analysis] = results
 
